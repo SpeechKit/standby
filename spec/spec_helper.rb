@@ -9,7 +9,7 @@ ActiveRecord::Base.configurations = {
   'test'            =>  { 'adapter' => 'sqlite3', 'database' => 'test_db' },
   'test_standby'      =>  { 'adapter' => 'sqlite3', 'database' => 'test_standby_one' },
   'test_standby_two'  =>  { 'adapter' => 'sqlite3', 'database' => 'test_standby_two'},
-  'test_standby_url'  =>  'postgres://root:@localhost:5432/test_standby'
+  'test_standby_url'  =>  'postgres://postgres:@localhost:5432/test_standby'
 }
 
 # Prepare databases
@@ -37,6 +37,9 @@ class Seeder
 
     # Populate on standby two
     connect(:test_standby_two)
+    create_tables
+
+    connect(:test_standby_url)
     create_tables
 
     # Reconnect to primary
